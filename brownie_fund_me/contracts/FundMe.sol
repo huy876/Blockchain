@@ -39,6 +39,7 @@ contract FundMe {
         // AggregatorV3Interface priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);
         (,int256 answer,,,) = priceFeed.latestRoundData(); 
         return uint256(answer * 10 ** 10); // return ethPriceInUSD * 10 ** 18
+        // return uint256(answer); // AggregatorV3Interface v 0.8 return decimals 18 (mean eth * 10 ** 18 already)
     }
 
     // convert WEI to USD * 10 ** 18
@@ -49,6 +50,14 @@ contract FundMe {
         uint256 ethAmountInUsd = (ethPrice / (10 ** 18)) * ethAmountInWei;
 
         return ethAmountInUsd;
+    }
+
+    function getEntranceFee() public view returns (uint256) {
+        // mimimumUSD
+        uint256 mimimumUSD = 50 * 10**18;
+        uint256 price = getPrice();
+        uint256 precision = 1 * 10**18;
+        return (mimimumUSD * precision) / price;
     }
 
     modifier onlyOwner {

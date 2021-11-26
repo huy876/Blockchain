@@ -104,7 +104,7 @@ contract MockV3Aggregator is AggregatorV2V3Interface {
     override
     returns (string memory)
   {
-    return "v0.6/tests/MockV3Aggregator.sol";
+    return "v0.8/tests/MockV3Aggregator.sol";
   }
 }
 
